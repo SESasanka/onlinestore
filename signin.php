@@ -16,29 +16,43 @@
         <div class="row d-flex justify-content-center align-items-center vh-100">
 
             <!-- SignIn Box -->
-            <div class="col-3 d-none">
+            <div class="col-10 col-lg-4 d-none" id="signinbox">
                 <div class="row card">
                     <div class="card-body">
                         <div class="col-12">
                             <h2 class="text-center fw-bold">Sign In</h2>
                         </div>
+
+                        <?php
+                        $email = "";
+                        $password = "";
+
+                        if(isset($_COOKIE["email"])){
+                            $email = $_COOKIE["email"];
+                        }
+                        if(isset($_COOKIE["password"])){
+                            $password = $_COOKIE["password"];
+                        }
+
+                        ?>
+
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Email Address</label>
-                            <input class="form-control" type="email" />
+                            <input class="form-control" type="email" id="em" value="<?php echo($email); ?>"/>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Password</label>
-                            <input class="form-control" type="password" />
+                            <input class="form-control" type="password"  id="pw" value="<?php echo($password); ?>"/>
                         </div>
                         <div class="form-check col-12 mb-3">
-                            <input class="form-check-input" type="checkbox">
-                            <label class="form-check-label" for="">Remember Me</label>
+                            <input id="rmb" class="form-check-input" type="checkbox" <?php if(isset($_COOKIE["email"])) {echo("checked"); }  ?> >
+                            <label  class="form-check-label" for="">Remember Me</label>
                         </div>
                         <div class="d-grid mb-3">
-                            <button class="btn btn-secondary">Sign In</button>
+                            <button class="btn btn-secondary" onclick="signin();">Sign In</button>
                         </div>
                         <div class="text-center">
-                            <a class="link-secondary text-decoration-none" href="#">New to Online Store? Sign In</a>
+                            <a  class="link-secondary text-decoration-none" onclick="changeView();">New to Online Store? Sign Up</a>
                         </div>
                     </div>
                 </div>
@@ -46,7 +60,7 @@
             <!-- SignIn Box -->
 
             <!-- SignUp Box -->
-            <div class="col-3">
+            <div class="col-10 col-lg-4" id="signupbox">
                 <div class="row card">
                     <div class="card-body">
                         <div class="col-12">
@@ -55,31 +69,35 @@
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label class="form-label" for="">First Name</label>
-                                <input class="form-control" type="text" />
+                                <input class="form-control" type="text" id="fname"/>
                             </div>
                             <div class="col-6 mb-3">
                                 <label class="form-label" for="">Last Name</label>
-                                <input class="form-control" type="text" />
+                                <input class="form-control" type="text"  id="lname"/>
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Mobile</label>
-                            <input class="form-control" type="text" />
+                            <input class="form-control" type="text" id="mobile"/>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Email Address</label>
-                            <input class="form-control" type="email" />
+                            <input class="form-control" type="email" id="email"/>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Password</label>
-                            <input class="form-control" type="password" />
+                            <input class="form-control" type="password" id="password"/>
+                        </div>
+
+                        <div id="errorMsgDiv2" class="d-none">
+                            <div class="alert alert-danger" id="errorMsg2"></div>
                         </div>
                         
                         <div class="d-grid mb-3">
-                            <button class="btn btn-secondary">Sign Up</button>
+                            <button class="btn btn-secondary" onclick="signup();">Sign Up</button>
                         </div>
                         <div class="text-center">
-                            <a class="link-secondary text-decoration-none" href="#">Already have an account? Sign In</a>
+                            <a  class="link-secondary text-decoration-none" onclick="changeView();">Already have an account? Sign In</a>
                         </div>
                     </div>
                 </div>
