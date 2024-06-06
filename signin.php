@@ -52,6 +52,9 @@
                             <button class="btn btn-secondary" onclick="signin();">Sign In</button>
                         </div>
                         <div class="text-center">
+                            <a href="" class="link-secondary text-decoration-none">Forgot Password?</a>
+                        </div>
+                        <div class="text-center">
                             <a  class="link-secondary text-decoration-none" onclick="changeView();">New to Online Store? Sign Up</a>
                         </div>
                     </div>
