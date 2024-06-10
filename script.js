@@ -82,3 +82,28 @@ function forgotPassword(){
     req.send();
 
 }
+
+function resetPassword(){
+
+    var pw = document.getElementById("pw");
+    var cpw = document.getElementById("cpw");
+    var vcode = document.getElementById("vcode");
+
+    var form = new FormData();
+    form.append("pw",pw.value);
+    form.append("cpw",cpw.value);
+    form.append("vcode",vcode.value);
+
+    var req = new XMLHttpRequest();
+
+    req.onreadystatechange = function(){
+        if(req.readyState == 4 && req.status == 200){
+            var resp = req.responseText;
+            alert(resp);
+        }
+    }
+
+    req.open("POST","reset-password-process.php",true);
+    req.send(form);
+
+}
