@@ -123,3 +123,29 @@ app.get('/auth/google/callback', async (req, res) => {
 });
 
 
+function adminSignFunction(){
+
+  var email = document.getElementById("email");
+  var password = document.getElementById("password");
+
+  var form = new FormData();
+  form.append("email",email.value);
+  form.append("password",password.value);
+
+  var request = new XMLHttpRequest();
+  request.onreadystatechange = function(){
+    if(request.readyState == 4 && request.status == 200){
+      if(request.responseText == "success"){
+        window.location = "admin-dashboard.php";
+      }else{
+        document.getElementById("msg").innerHTML = request.responseText;
+        document.getElementById("msgDiv").className = "d-none";
+      }
+    }
+  }
+
+  request.open("POST","admin-signin-process.php",true);
+  request.send(form);
+
+}
+
