@@ -27,10 +27,10 @@
                         $email = "";
                         $password = "";
 
-                        if(isset($_COOKIE["email"])){
+                        if (isset($_COOKIE["email"])) {
                             $email = $_COOKIE["email"];
                         }
-                        if(isset($_COOKIE["password"])){
+                        if (isset($_COOKIE["password"])) {
                             $password = $_COOKIE["password"];
                         }
 
@@ -38,15 +38,17 @@
 
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Email Address</label>
-                            <input class="form-control" type="email" id="em" value="<?php echo($email); ?>"/>
+                            <input class="form-control" type="email" id="em" value="<?php echo ($email); ?>" />
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Password</label>
-                            <input class="form-control" type="password"  id="pw" value="<?php echo($password); ?>"/>
+                            <input class="form-control" type="password" id="pw" value="<?php echo ($password); ?>" />
                         </div>
                         <div class="form-check col-12 mb-3">
-                            <input id="rmb" class="form-check-input" type="checkbox" <?php if(isset($_COOKIE["email"])) {echo("checked"); }  ?> >
-                            <label  class="form-check-label" for="">Remember Me</label>
+                            <input id="rmb" class="form-check-input" type="checkbox" <?php if (isset($_COOKIE["email"])) {
+                                                                                            echo ("checked");
+                                                                                        }  ?>>
+                            <label class="form-check-label" for="">Remember Me</label>
                         </div>
                         <div class="d-grid mb-3">
                             <button class="btn btn-secondary" onclick="signin();">Sign In</button>
@@ -55,7 +57,15 @@
                             <a href="" class="link-secondary text-decoration-none">Forgot Password?</a>
                         </div>
                         <div class="text-center">
-                            <a  class="link-secondary text-decoration-none" onclick="changeView();">New to Online Store? Sign Up</a>
+                            <a class="link-secondary text-decoration-none" onclick="changeView();">New to Online Store? Sign Up</a>
+                        </div>
+                        <div class="text-center">
+                            <button class="link-secondary text-decoration-none">
+                                <div id="g_id_onload" data-client_id="551653266643-dk0hj6gteq6u5dp4b6uprlkd7l2bt8hu.apps.googleusercontent.com" data-login_uri="http://localhost/onlinestore/index.php" data-auto_prompt="false">
+                                </div>
+                                <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="sign_in_with" data-size="large" data-logo_alignment="left">
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -72,35 +82,35 @@
                         <div class="row">
                             <div class="col-6 mb-3">
                                 <label class="form-label" for="">First Name</label>
-                                <input class="form-control" type="text" id="fname"/>
+                                <input class="form-control" type="text" id="fname" />
                             </div>
                             <div class="col-6 mb-3">
                                 <label class="form-label" for="">Last Name</label>
-                                <input class="form-control" type="text"  id="lname"/>
+                                <input class="form-control" type="text" id="lname" />
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Mobile</label>
-                            <input class="form-control" type="text" id="mobile"/>
+                            <input class="form-control" type="text" id="mobile" />
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Email Address</label>
-                            <input class="form-control" type="email" id="email"/>
+                            <input class="form-control" type="email" id="email" />
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="">Password</label>
-                            <input class="form-control" type="password" id="password"/>
+                            <input class="form-control" type="password" id="password" />
                         </div>
 
                         <div id="errorMsgDiv2" class="d-none">
                             <div class="alert alert-danger" id="errorMsg2"></div>
                         </div>
-                        
+
                         <div class="d-grid mb-3">
                             <button class="btn btn-secondary" onclick="signup();">Sign Up</button>
                         </div>
                         <div class="text-center">
-                            <a  class="link-secondary text-decoration-none" onclick="changeView();">Already have an account? Sign In</a>
+                            <a class="link-secondary text-decoration-none" onclick="changeView();">Already have an account? Sign In</a>
                         </div>
                     </div>
                 </div>
@@ -110,6 +120,7 @@
 
     </div>
 
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="script.js"></script>
 </body>
 
