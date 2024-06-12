@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary fixed-top">
     <div class="container">
         <a href="admin-dashboard.php" class="navbar-brand h1 mb-0">
             <img src="image/logo.png" class="me-3" height="50" alt="">
@@ -9,7 +9,7 @@
         <div id="navabarSupportContent" class="collapse navbar-collapse">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a href="#" class="nav-link active" aria-current="page">User Mangement</a>
+                    <a href="admin-user.php" class="nav-link active" aria-current="page">User Mangement</a>
                 </li>
                 <li class="nav-item active">
                     <a href="#" class="nav-link active" aria-current="page">Product Mangement</a>

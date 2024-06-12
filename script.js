@@ -123,7 +123,7 @@ app.get('/auth/google/callback', async (req, res) => {
 });
 
 
-function adminSignFunction(){
+function adminSigin(){
 
   var email = document.getElementById("email");
   var password = document.getElementById("password");
@@ -139,7 +139,7 @@ function adminSignFunction(){
         window.location = "admin-dashboard.php";
       }else{
         document.getElementById("msg").innerHTML = request.responseText;
-        document.getElementById("msgDiv").className = "d-none";
+        document.getElementById("msgDiv").className = "d-block";
       }
     }
   }
@@ -149,3 +149,16 @@ function adminSignFunction(){
 
 }
 
+function loadUsers(){
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      document.getElementById("tableContent").innerHTML = resp;
+    }
+  }
+  req.open("GET","load-users-process.php",true);
+  req.send();
+
+}

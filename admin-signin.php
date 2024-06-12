@@ -13,29 +13,37 @@
 
 <body>
 
-    <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="row ">
-            <h2 class="text-center">Admin Login</h2>
+    <div class="container ">
+        <div class="row d-flex justify-content-center align-items-center vh-100">
 
-            <div class="mt-3">
-                <label>Email :</label>
-                <input type="text" class="form-control border-light bg-transparent" placeholder="EX: text@gmail.com" id="email">
+            <!-- SignIn Box -->
+            <div class="col-10 col-lg-4">
+                <div class="row card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <h2 class="text-center fw-bold">Admin | Sign In</h2>
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="">Email Address</label>
+                            <input class="form-control" type="email" id="email" placeholder="example@gmail.com"/>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="">Password</label>
+                            <input class="form-control" type="password" id="password" placeholder="***********"/>
+                        </div>
+                        <div class="d-grid mb-3">
+                            <button class="btn btn-secondary" onclick="adminSigin();">Sign In</button>
+                        </div>
+                        <div id="msgDiv" class="d-none">
+                            <div class="alert alert-danger" id="msg"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="mt-3">
-                <label>Password :</label>
-                <input type="text" class="form-control border-light bg-transparent" placeholder="EX: 12345" id="password">
-            </div>
-
-            <div class="d-none" id="msgDiv">
-                <div class="alert alert-danger" id="msg"></div>
-            </div>
-
-            <div class="mt-4">
-                <button class="btn btn-secondary btn-outline-light col-12" onclick="adminSignFunction();">Sign In</button>
-            </div>
-
+            <!-- SignIn Box -->
         </div>
+
     </div>
 
     <script src="script.js"></script>
