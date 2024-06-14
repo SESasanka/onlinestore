@@ -20,32 +20,18 @@ if (isset($_SESSION["admin"])) {
 
     </head>
 
-    <body onload="loadUsers();">
+    <body onload="loadUsers(1);">
         
         <!-- admin header -->
         <?php include "admin-header.php" ?>
         
         <div class="container admin-body">
             <div class="row d-flex justify-content-center">
-                <div class="col-10">
+                <div class="col-10 mt-5">
                     <h2 class="text-center">User Managment</h2>
 
-                    <div class="mt-4 table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <td>ID</td>
-                                    <td>First Name</td>
-                                    <td>Last Name</td>
-                                    <td>Email</td>
-                                    <td>Mobile</td>
-                                    <td>Action</td>
-                                </tr>
-                            </thead>
-                            <tbody id="tableContent">
-                                
-                            </tbody>
-                        </table>
+                    <div class="mt-4 table-responsive" id="content">
+                        
                     </div>
 
                 </div>

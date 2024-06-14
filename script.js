@@ -149,16 +149,16 @@ function adminSigin(){
 
 }
 
-function loadUsers(){
+function loadUsers(page){
 
   var req = new XMLHttpRequest();
   req.onreadystatechange = function(){
     if(req.readyState == 4 && req.status == 200){
       var resp = req.responseText;
-      document.getElementById("tableContent").innerHTML = resp;
+      document.getElementById("content").innerHTML = resp;
     }
   }
-  req.open("GET","load-users-process.php",true);
+  req.open("GET","load-users-process.php?page=" + page,true);
   req.send();
 
 }
