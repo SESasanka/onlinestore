@@ -101,7 +101,7 @@ function resetPassword() {
   req.send(form);
 }
 
-app.get('/auth/google/callback', async (req, res) => {
+app.get("/auth/google/callback", async (req, res) => {
   const { token } = req.query;
 
   // Verify the token with Google
@@ -122,43 +122,80 @@ app.get('/auth/google/callback', async (req, res) => {
   res.redirect("/dashboard"); // Redirect the user to your desired page
 });
 
-
-function adminSigin(){
-
+function adminSigin() {
   var email = document.getElementById("email");
   var password = document.getElementById("password");
 
   var form = new FormData();
-  form.append("email",email.value);
-  form.append("password",password.value);
+  form.append("email", email.value);
+  form.append("password", password.value);
 
   var request = new XMLHttpRequest();
-  request.onreadystatechange = function(){
-    if(request.readyState == 4 && request.status == 200){
-      if(request.responseText == "success"){
+  request.onreadystatechange = function () {
+    if (request.readyState == 4 && request.status == 200) {
+      if (request.responseText == "success") {
         window.location = "admin-dashboard.php";
-      }else{
+      } else {
         document.getElementById("msg").innerHTML = request.responseText;
         document.getElementById("msgDiv").className = "d-block";
       }
     }
-  }
+  };
 
-  request.open("POST","admin-signin-process.php",true);
+  request.open("POST", "admin-signin-process.php", true);
   request.send(form);
-
 }
 
-function loadUsers(page){
-
+function loadUsers(page) {
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
       document.getElementById("content").innerHTML = resp;
     }
-  }
-  req.open("GET","load-users-process.php?page=" + page,true);
+  };
+  req.open("GET", "load-users-process.php?page=" + page, true);
   req.send();
+}
 
+function changeUserStatus(id, status) {
+  var req = new XMLHttpRequest();
+
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
+      var resp = req.responseText;
+      if (resp == "success") {
+        window.location.reload();
+      } else {
+        alert(resp);
+      }
+    }
+  };
+  req.open(
+    "GET",
+    "change-user-status-process.php?id=" + id + "&s=" + status,
+    true
+  );
+  req.send();
+}
+
+function registerBrand() {
+  var brand = document.getElementById("brandName");
+
+  var form = new FormData();
+  form.append("brand", brand.value);
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 400) {
+      var resp = req.responseText;
+      if (resp == "success") {
+        window.location.reload();
+      } else {
+        alert(resp);
+      }
+    }
+  };
+  req.open("POST", "register-brand-process.php", true);
+  req.send(form);
 }

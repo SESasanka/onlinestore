@@ -12,7 +12,7 @@
                     <a href="admin-user.php" class="nav-link active" aria-current="page">User Mangement</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="#" class="nav-link active" aria-current="page">Product Mangement</a>
+                    <a href="admin-product.php" class="nav-link active" aria-current="page">Product Mangement</a>
                 </li>
                 <li class="nav-item active">
                     <a href="#" class="nav-link active" aria-current="page">Stock Mangement</a>

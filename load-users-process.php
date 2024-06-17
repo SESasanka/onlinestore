@@ -47,13 +47,13 @@
                 <td>
 
                     <?php
-                    if ($row["status"] == 1) {
+                    if ($row["status"] == '1') {
                     ?>
-                        <button class="btn btn-success w-100">Active</button>
+                        <button class="btn btn-success w-100" onclick="changeUserStatus(<?php echo($row['id']); ?>, 0);">Active</button>
                     <?php
                     } else {
                     ?>
-                        <button class="btn btn-danger w-100">Deactive</button>
+                        <button class="btn btn-danger w-100" onclick="changeUserStatus(<?php echo($row['id']); ?>, 1);">Deactive</button>
                     <?php
                     }
                     ?>
@@ -71,34 +71,34 @@
 </table>
 
 <nav aria-label="mt-3">
-  <ul class="pagination  justify-content-center">
+    <ul class="pagination  justify-content-center">
 
-    <li class="page-item">
-      <a class="page-link" aria-label="Previous" <?php if($page < $onOfPage){ ?> onclick="loadUsers(<?php echo($page - 1) ?>);" <?php }  ?> >
-        <span aria-hidden="true">&laquo;</span>
-      </a>
-    </li>
+        <li class="page-item">
+            <a class="page-link" aria-label="Previous" <?php if ($page > 1) { ?> onclick="loadUsers(<?php echo ($page - 1) ?>);" <?php }  ?>>
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
 
-    <?php
-    for($i = 1; $i <= $onOfPage; $i++ ){
-        if($i == $page){
-            ?>
-            <li class="page-item active"><a class="page-link" onclick="loadUsers(<?php echo($i); ?>)"><?php echo($i); ?></a></li>
+        <?php
+        for ($i = 1; $i <= $onOfPage; $i++) {
+            if ($i == $page) {
+        ?>
+                <li class="page-item active"><a class="page-link" onclick="loadUsers(<?php echo ($i); ?>)"><?php echo ($i); ?></a></li>
             <?php
-        }else{
+            } else {
             ?>
-            <li class="page-item"><a class="page-link" onclick="loadUsers(<?php echo($i); ?>)"><?php echo($i); ?></a></li>
-            <?php
+                <li class="page-item"><a class="page-link" onclick="loadUsers(<?php echo ($i); ?>)"><?php echo ($i); ?></a></li>
+        <?php
+            }
         }
-    }
-    ?>
+        ?>
 
 
-    <li class="page-item">
-      <a class="page-link" aria-label="Next" <?php if($page < $onOfPage){ ?> onclick="loadUsers(<?php echo($page + 1) ?>);" <?php }  ?> >
-        <span aria-hidden="true">&raquo;</span>
-      </a>
-    </li>
+        <li class="page-item">
+            <a class="page-link" aria-label="Next" <?php if ($page < $onOfPage) { ?> onclick="loadUsers(<?php echo ($page + 1) ?>);" <?php }  ?>>
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
 
-  </ul>
+    </ul>
 </nav>
