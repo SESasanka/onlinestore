@@ -199,3 +199,96 @@ function registerBrand() {
   req.open("POST", "register-brand-process.php", true);
   req.send(form);
 }
+function registerCategory() {
+  var category = document.getElementById("categoryName");
+
+  var form = new FormData();
+  form.append("category", category.value);
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 400) {
+      var resp = req.responseText;
+      if (resp == "success") {
+        window.location.reload();
+      } else {
+        alert(resp);
+      }
+    }
+  };
+  req.open("POST", "register-category-process.php", true);
+  req.send(form);
+}
+function registerColor() {
+  var color = document.getElementById("colorName");
+
+  var form = new FormData();
+  form.append("color", color.value);
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 400) {
+      var resp = req.responseText;
+      if (resp == "success") {
+        window.location.reload();
+      } else {
+        alert(resp);
+      }
+    }
+  };
+  req.open("POST", "register-color-process.php", true);
+  req.send(form);
+}
+function registerSize() {
+  var size = document.getElementById("sizeName");
+
+  var form = new FormData();
+  form.append("size", size.value);
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 400) {
+      var resp = req.responseText;
+      if (resp == "success") {
+        window.location.reload();
+      } else {
+        alert(resp);
+      }
+    }
+  };
+  req.open("POST", "register-size-process.php", true);
+  req.send(form);
+}
+
+function registerProduct(){
+
+  var name = document.getElementById("prodname");
+  var desc = document.getElementById("proddesc");
+  var category = document.getElementById("prodcategory");
+  var brand = document.getElementById("prodbrand");
+  var color = document.getElementById("prodcolor");
+  var size = document.getElementById("prodsize");
+  var image = document.getElementById("prodimage");
+
+  var form = new FormData();
+  form.append("name",name.value);
+  form.append("desc",desc.value);
+  form.append("category",category.value);
+  form.append("brand",brand.value);
+  form.append("color",color.value);
+  form.append("size",size.value);
+  form.append("img",image.files[0]);
+
+  var req = new XMLHttpRequest();
+
+  req.onreadystatechange = function (){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      alert(resp);
+    }
+  }
+
+  req.open("POST","register-product-process.php",true);
+  req.send(form);
+
+}

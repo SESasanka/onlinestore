@@ -1,5 +1,6 @@
 <?php
 
+include "connection.php";
 session_start();
 
 if (isset($_SESSION["admin"])) {
@@ -32,13 +33,13 @@ if (isset($_SESSION["admin"])) {
 
                     <div class="row mt-4">
                         <div class="col-4 offset-4 d-flex justify-content-center mb-3">
-                            <button class="btn btn-primary w-100">Register Product</button>
+                            <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#registerProductModal">Register Product</button>
                         </div>
                         <div class="col-6 offset-3 d-flex justify-content-around">
                             <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#registerBrandModal">Add Brand</button>
-                            <button class="btn btn-warning">Add Category</button>
-                            <button class="btn btn-warning">Add Color</button>
-                            <button class="btn btn-warning">Add Size</button>
+                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#registerCategoryModal">Add Category</button>
+                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#registerColorModal">Add Color</button>
+                            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#registerSizeModal">Add Size</button>
                         </div>
                     </div>
 
@@ -53,16 +54,16 @@ if (isset($_SESSION["admin"])) {
         <!-- admin footer  -->
         <?php include "admin-footer.php" ?>
 
-        <!-- Modal -->
-        <div class="modal fade" id="registerBrandModal" tabindex="-1"  aria-hidden="true">
+        <!--brand Modal -->
+        <div class="modal fade" id="registerBrandModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                       <label class="form-label" for="">Brand Name</label>
-                       <input class="form-control" type="text" id="brandName">
+                        <label class="form-label" for="">Brand Name</label>
+                        <input class="form-control" type="text" id="brandName">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -72,8 +73,181 @@ if (isset($_SESSION["admin"])) {
             </div>
         </div>
 
+        <!-- category modal -->
+        <div class="modal fade" id="registerCategoryModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="form-label" for="">Category Name</label>
+                        <input class="form-control" type="text" id="categoryName">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="registerCategory();">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <script src="script.js"></script>
+        <!-- color modal -->
+        <div class="modal fade" id="registerColorModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="form-label" for="">Color Name</label>
+                        <input class="form-control" type="text" id="colorName">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="registerColor();">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- size modal -->
+        <div class="modal fade" id="registerSizeModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <label class="form-label" for="">Size Name</label>
+                        <input class="form-control" type="text" id="sizeName">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" onclick="registerSize();">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- register product -->
+        <div class="modal fade" id="registerProductModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-2">
+                            <label class="form-label" for="productName">Product Name</label>
+                            <input class="form-control" type="text" id="prodname">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="">Product Description</label>
+                            <textarea class="form-control" type="text" id="proddesc" rows="5"></textarea>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="">Category</label>
+                            <select class="form-control" id="prodcategory">
+                                <option value="0">Select Category</option>
+
+                                <?php
+                                $rs = Database::search("SELECT * FROM `category`");
+                                $num = $rs->num_rows;
+
+                                for ($x = 0; $x < $num; $x++) {
+                                    $d = $rs->fetch_assoc();
+                                ?>
+                                    <option value="<?php echo($d["cat_id"]); ?>"><?php echo($d["cat_name"]); ?></option>
+
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="">Brand</label>
+                            <select class="form-control" id="prodbrand">
+                                <option value="0">Select brand</option>
+
+                                <?php
+                                $rs = Database::search("SELECT * FROM `brand`");
+                                $num = $rs->num_rows;
+
+                                for ($x = 0; $x < $num; $x++) {
+                                    $d = $rs->fetch_assoc();
+                                ?>
+                                    <option value="<?php echo($d["brand_id"]); ?>"><?php echo($d["brand_name"]); ?></option>
+
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="">Color</label>
+                            <select class="form-control" id="prodcolor">
+                                <option value="0">Select Color</option>
+
+                                <?php
+                                $rs = Database::search("SELECT * FROM `color`");
+                                $num = $rs->num_rows;
+
+                                for ($x = 0; $x < $num; $x++) {
+                                    $d = $rs->fetch_assoc();
+                                ?>
+                                    <option value="<?php echo($d["color_id"]); ?>"><?php echo($d["color_name"]); ?></option>
+
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="">Size</label>
+                            <select class="form-control" id="prodsize">
+                                <option value="0">Select Size</option>
+
+                                <?php
+                                $rs = Database::search("SELECT * FROM `size`");
+                                $num = $rs->num_rows;
+
+                                for ($x = 0; $x < $num; $x++) {
+                                    $d = $rs->fetch_assoc();
+                                ?>
+                                    <option value="<?php echo($d["size_id"]); ?>"><?php echo($d["size_name"]); ?></option>
+
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="">Product Image</label>
+                            <input class="form-control" type="file" id="prodimage">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="registerProduct();">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <script src="script.js"></script>
     </body>
 
     </html>
