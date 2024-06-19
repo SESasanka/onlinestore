@@ -21,7 +21,7 @@ if (isset($_SESSION["admin"])) {
 
     </head>
 
-    <body onload="loadUsers(1);">
+    <body onload="loadProducts(1);">
 
         <!-- admin header -->
         <?php include "admin-header.php" ?>
