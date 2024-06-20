@@ -161,7 +161,7 @@ if (isset($_SESSION["admin"])) {
                                 for ($x = 0; $x < $num; $x++) {
                                     $d = $rs->fetch_assoc();
                                 ?>
-                                    <option value="<?php echo($d["cat_id"]); ?>"><?php echo($d["cat_name"]); ?></option>
+                                    <option value="<?php echo ($d["cat_id"]); ?>"><?php echo ($d["cat_name"]); ?></option>
 
                                 <?php
                                 }
@@ -182,7 +182,7 @@ if (isset($_SESSION["admin"])) {
                                 for ($x = 0; $x < $num; $x++) {
                                     $d = $rs->fetch_assoc();
                                 ?>
-                                    <option value="<?php echo($d["brand_id"]); ?>"><?php echo($d["brand_name"]); ?></option>
+                                    <option value="<?php echo ($d["brand_id"]); ?>"><?php echo ($d["brand_name"]); ?></option>
 
                                 <?php
                                 }
@@ -203,7 +203,7 @@ if (isset($_SESSION["admin"])) {
                                 for ($x = 0; $x < $num; $x++) {
                                     $d = $rs->fetch_assoc();
                                 ?>
-                                    <option value="<?php echo($d["color_id"]); ?>"><?php echo($d["color_name"]); ?></option>
+                                    <option value="<?php echo ($d["color_id"]); ?>"><?php echo ($d["color_name"]); ?></option>
 
                                 <?php
                                 }
@@ -224,7 +224,7 @@ if (isset($_SESSION["admin"])) {
                                 for ($x = 0; $x < $num; $x++) {
                                     $d = $rs->fetch_assoc();
                                 ?>
-                                    <option value="<?php echo($d["size_id"]); ?>"><?php echo($d["size_name"]); ?></option>
+                                    <option value="<?php echo ($d["size_id"]); ?>"><?php echo ($d["size_name"]); ?></option>
 
                                 <?php
                                 }

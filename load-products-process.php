@@ -7,6 +7,7 @@
             <td>Brand</td>
             <td>Color</td>
             <td>Size</td>
+            <td>Status</td>
             <td>Action</td>
         </tr>
     </thead>
@@ -43,6 +44,23 @@
                 <td><?php echo ($row["brand_name"]); ?></td>
                 <td><?php echo ($row["color_name"]); ?></td>
                 <td><?php echo ($row["size_name"]); ?></td>
+                <td>
+                    <?php
+                    if ($row["status"] == 1) {
+                    ?>
+                        <button class="btn btn-sm btn-success" onclick="changeProductStatus(<?php echo($row['id']); ?>);">Active</button>
+                    <?php
+                    } else {
+                    ?>
+                        <button class="btn btn-sm btn-danger" onclick="changeProductStatus(<?php echo($row['id']); ?>);">Deactive</button>
+                    <?php
+                    }
+                    ?>
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-light">Edit</button>
+                </td>
+
             </tr>
 
         <?php

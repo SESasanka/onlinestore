@@ -308,3 +308,21 @@ function loadProducts(page){
   req.send();
 
 }
+
+function changeProductStatus(id){
+  var req =  new XMLHttpRequest();
+
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      if(resp == "success"){
+          window.location.reload();
+      }else{
+        alert(resp);
+      }
+      
+    }
+  }
+  req.open("GET","change-product-process.php?id=" + id,true);
+  req.send();
+}
