@@ -18,7 +18,7 @@ if (isset($_SESSION["admin"])) {
         <link rel="icon" href="image/logo.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
     </head>
 
     <body onload="loadProducts(1);">
@@ -60,7 +60,7 @@ if (isset($_SESSION["admin"])) {
                     <div class="modal-body">
                         <div class="md-2">
                             <label class="form-label" for="proName">Product</label>
-                            <select  id="proName" class="form-select">
+                            <select  id="product" class="form-select">
                                 <option value="0">Select Product</option>
                                 <?php
                                 $rs = Database::search("SELECT * FROM `product_details` WHERE `status`='1'");
@@ -78,22 +78,23 @@ if (isset($_SESSION["admin"])) {
 
                         <div class="mb-2">
                             <label class="form-label">QTY</label>
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" id="qty">
                         </div>
                         <div class="mb-2">
                             <label class="form-label">Unit Price</label>
-                            <input class="form-control" type="text">
+                            <input class="form-control" type="text" id="unitPrice">
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" onclick="registerBrand();">ADD STOCK</button>
+                        <button type="button" class="btn btn-primary" onclick="addStock();">ADD STOCK</button>
                     </div>
                 </div>
             </div>
         </div>
 
             <script src="script.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 
     </html>

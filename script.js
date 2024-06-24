@@ -326,3 +326,65 @@ function changeProductStatus(id){
   req.open("GET","change-product-process.php?id=" + id,true);
   req.send();
 }
+
+function addStock(){
+
+  var product = document.getElementById("product");
+  var qty = document.getElementById("qty");
+  var price = document.getElementById("unitPrice");
+
+  var form = new FormData();
+  form.append("product", product.value);
+  form.append("qty", qty.value);
+  form.append("price", price.value);
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      if(resp == "success"){
+        showAlert("Success","Stock Updated Successfully!","success").then(()=>{
+          window.location.reload();
+        });
+      }else{
+        showAlert("Error",resp,"error");
+      }
+    }
+  }
+
+  req.open("POST","add-stock-process.php",true);
+  req.send(form);
+
+}
+
+function showAlert(title,text,icon){
+  return Swal.fire({
+    title: title,
+    text: text,
+    icon: icon,
+    color:"#fff"
+  });
+}
+
+function loadProUpdateData(id){
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      var data = JSON.parse(resp);
+
+      document.getElementById("uProdname").value = data.name;
+      document.getElementById("uProddesc").value = data.description;
+      document.getElementById("uProdcategory").value = data.category_cat_id;
+      document.getElementById("uProdbrand").value = data.brand_brand_id;
+      document.getElementById("uProdcolor").value = data.color_color_id;
+      document.getElementById("uProdsize").value = data.size_size_id;
+      // document.getElementById("uProdImgTag").src = data.img;
+
+      
+      new bootstrap.Modal(document.getElementById("UpdateProductModal")).show();
+    }
+  }
+  req.open("GET","get-product-details.php?id=" + id, true);
+  req.send();
+}

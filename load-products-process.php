@@ -58,7 +58,7 @@
                     ?>
                 </td>
                 <td>
-                    <button class="btn btn-sm btn-light">Edit</button>
+                    <button class="btn btn-sm btn-light" onclick="loadProUpdateData('<?php echo($row['id']); ?>');">Edit</button>
                 </td>
 
             </tr>

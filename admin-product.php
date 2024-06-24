@@ -59,6 +59,7 @@ if (isset($_SESSION["admin"])) {
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <h1 class="modal-title fs-5">Product Register</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -134,23 +135,24 @@ if (isset($_SESSION["admin"])) {
         <div class="modal fade" id="registerProductModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header fs-5">
+                        <h2>Product Register</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
 
                         <div class="mb-2">
-                            <label class="form-label" for="productName">Product Name</label>
+                            <label class="form-label" for="prodname">Product Name</label>
                             <input class="form-control" type="text" id="prodname">
                         </div>
 
                         <div class="mb-2">
-                            <label class="form-label" for="">Product Description</label>
+                            <label class="form-label" for="proddesc">Product Description</label>
                             <textarea class="form-control" type="text" id="proddesc" rows="5"></textarea>
                         </div>
 
                         <div class="mb-2">
-                            <label class="form-label" for="">Category</label>
+                            <label class="form-label" for="prodcategory">Category</label>
                             <select class="form-control" id="prodcategory">
                                 <option value="0">Select Category</option>
 
@@ -171,7 +173,7 @@ if (isset($_SESSION["admin"])) {
                         </div>
 
                         <div class="mb-2">
-                            <label class="form-label" for="">Brand</label>
+                            <label class="form-label" for="prodbrand">Brand</label>
                             <select class="form-control" id="prodbrand">
                                 <option value="0">Select brand</option>
 
@@ -192,7 +194,7 @@ if (isset($_SESSION["admin"])) {
                         </div>
 
                         <div class="mb-2">
-                            <label class="form-label" for="">Color</label>
+                            <label class="form-label" for="prodcolor">Color</label>
                             <select class="form-control" id="prodcolor">
                                 <option value="0">Select Color</option>
 
@@ -213,7 +215,7 @@ if (isset($_SESSION["admin"])) {
                         </div>
 
                         <div class="mb-2">
-                            <label class="form-label" for="">Size</label>
+                            <label class="form-label" for="prodsize">Size</label>
                             <select class="form-control" id="prodsize">
                                 <option value="0">Select Size</option>
 
@@ -234,20 +236,144 @@ if (isset($_SESSION["admin"])) {
                         </div>
 
                         <div class="mb-2">
-                            <label class="form-label" for="">Product Image</label>
+                            <label class="form-label" for="prodimage">Product Image</label>
                             <input class="form-control" type="file" id="prodimage">
                         </div>
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="registerProduct();">Save changes</button>
+                            <button type="button" class="btn btn-primary" onclick="registerProduct();">Register Product</button>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Update product modal -->
+
+        <div class="modal fade" id="UpdateProductModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Update Product</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-2">
+                            <label class="form-label" for="uProdname">Product Name</label>
+                            <input class="form-control" type="text" id="uProdname">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="uProddesc">Product Description</label>
+                            <textarea class="form-control" type="text" id="uProddesc" rows="5"></textarea>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="uProdcategory">Category</label>
+                            <select class="form-control" id="uProdcategory">
+                                <option value="0">Select Category</option>
+
+                                <?php
+                                $rs = Database::search("SELECT * FROM `category`");
+                                $num = $rs->num_rows;
+
+                                for ($x = 0; $x < $num; $x++) {
+                                    $d = $rs->fetch_assoc();
+                                ?>
+                                    <option value="<?php echo ($d["cat_id"]); ?>"><?php echo ($d["cat_name"]); ?></option>
+
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="uProdbrand">Brand</label>
+                            <select class="form-control" id="uProdbrand">
+                                <option value="0">Select brand</option>
+
+                                <?php
+                                $rs = Database::search("SELECT * FROM `brand`");
+                                $num = $rs->num_rows;
+
+                                for ($x = 0; $x < $num; $x++) {
+                                    $d = $rs->fetch_assoc();
+                                ?>
+                                    <option value="<?php echo ($d["brand_id"]); ?>"><?php echo ($d["brand_name"]); ?></option>
+
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="uProdcolor">Color</label>
+                            <select class="form-control" id="uProdcolor">
+                                <option value="0">Select Color</option>
+
+                                <?php
+                                $rs = Database::search("SELECT * FROM `color`");
+                                $num = $rs->num_rows;
+
+                                for ($x = 0; $x < $num; $x++) {
+                                    $d = $rs->fetch_assoc();
+                                ?>
+                                    <option value="<?php echo ($d["color_id"]); ?>"><?php echo ($d["color_name"]); ?></option>
+
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="uProdsize">Size</label>
+                            <select class="form-control" id="uProdsize">
+                                <option value="0">Select Size</option>
+
+                                <?php
+                                $rs = Database::search("SELECT * FROM `size`");
+                                $num = $rs->num_rows;
+
+                                for ($x = 0; $x < $num; $x++) {
+                                    $d = $rs->fetch_assoc();
+                                ?>
+                                    <option value="<?php echo ($d["size_id"]); ?>"><?php echo ($d["size_name"]); ?></option>
+
+                                <?php
+                                }
+                                ?>
+
+                            </select>
+                        </div>
+
+                        <div class="mb-2">
+                            <img src="uProdImgTag" alt="" height="300">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="form-label" for="uProdimage">Product Image</label>
+                            <input class="form-control" type="file" id="uProdimage">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="registerProduct();">update Product</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-            <script src="script.js"></script>
+        <script src="script.js"></script>
     </body>
 
     </html>
