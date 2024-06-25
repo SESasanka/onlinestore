@@ -18,6 +18,7 @@ if (isset($_SESSION["admin"])) {
         <link rel="icon" href="image/logo.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
     </head>
 
@@ -261,6 +262,11 @@ if (isset($_SESSION["admin"])) {
                     <div class="modal-body">
 
                         <div class="mb-2">
+                            <label class="form-label" for="">Product ID</label>
+                            <input class="form-control" id="uProId" type="text" disabled>
+                        </div>
+
+                        <div class="mb-2">
                             <label class="form-label" for="uProdname">Product Name</label>
                             <input class="form-control" type="text" id="uProdname">
                         </div>
@@ -355,12 +361,13 @@ if (isset($_SESSION["admin"])) {
                         </div>
 
                         <div class="mb-2">
-                            <img src="uProdImgTag" alt="" height="300">
+                            <label class="form-label">Product Image</label>
+                            <img src="" id="uProdImgTag" height="300">
                         </div>
 
                         <div class="mb-2">
-                            <label class="form-label" for="uProdimage">Product Image</label>
-                            <input class="form-control" type="file" id="uProdimage">
+                            <label class="form-label">Product Image</label>
+                            <input class="form-control" type="file" id="uProdimage" onchange="updateProdImage();">
                         </div>
 
                         <div class="modal-footer">
@@ -374,6 +381,8 @@ if (isset($_SESSION["admin"])) {
 
 
         <script src="script.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     </body>
 
     </html>

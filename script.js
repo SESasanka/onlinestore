@@ -373,13 +373,14 @@ function loadProUpdateData(id){
       var resp = req.responseText;
       var data = JSON.parse(resp);
 
+      document.getElementById("uProId").value = data.id;
       document.getElementById("uProdname").value = data.name;
       document.getElementById("uProddesc").value = data.description;
       document.getElementById("uProdcategory").value = data.category_cat_id;
       document.getElementById("uProdbrand").value = data.brand_brand_id;
       document.getElementById("uProdcolor").value = data.color_color_id;
       document.getElementById("uProdsize").value = data.size_size_id;
-      // document.getElementById("uProdImgTag").src = data.img;
+      document.getElementById("uProdImgTag").src = data.img;
 
       
       new bootstrap.Modal(document.getElementById("UpdateProductModal")).show();
@@ -387,4 +388,62 @@ function loadProUpdateData(id){
   }
   req.open("GET","get-product-details.php?id=" + id, true);
   req.send();
+}
+
+function updateProdImage(){
+  var image = document.getElementById("uProdimage");
+  var imageTag = document.getElementById("uProdImgTag");
+
+  var url = window.URL.createObjectURL(image.files[0]);
+  imageTag.src = url;
+
+}
+
+function updateProduct(){
+  var id = document.getElementById("uProdname");
+  var name = document.getElementById("uProddesc");
+  var desc = document.getElementById("uProdcategory");
+  var cat = document.getElementById("uProId");
+  var brand = document.getElementById("uProdbrand");
+  var size = document.getElementById("uProdcolor");
+  var color = document.getElementById("uProdsize") ;
+  var image = document.getElementById("uProdimage");
+
+  var form = new FormData();
+  form.append("id",id.value);
+  form.append("name",name.value);
+  form.append("desc",desc.value);
+  form.append("cat",cat.value);
+  form.append("brand",brand.value);
+  form.append("size",size.value);
+  form.append("color",color.value);
+  form.append("img",image.files[0]);
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      if(resp == "success"){
+        showAlert("Success", "Product Updated Successfully","success").then(()=>{
+          window.location.reload();
+        });
+      }else{
+        showAlert("Error",resp, "error");
+      }
+    }
+  }
+  req.open("POST","update-product-process.php",true);
+  req.send(form);
+
+}
+
+function printReport(){
+  var Content = document.body.innerHTML;
+  var printArea = document.getElementById("printArea");
+
+  document.body.innerHTML = printArea.innerHTML;
+
+  window.print();
+
+  document.body.innerHTML = Content;
 }
