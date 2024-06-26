@@ -25,7 +25,7 @@
             </div>
 
             <div class="col-4">
-                <a href="#" class="btn btn-outline-warning w-100">Products Reports</a>
+                <a href="product-report.php" class="btn btn-outline-warning w-100">Products Reports</a>
             </div>
 
             <div class="col-4">
