@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "connection.php";
 ?>
 
 <!DOCTYPE html>
@@ -44,65 +45,51 @@ session_start();
       </div>
 
       <div class="row my-5">
-        <div class="col-12 col-md-4 col-lg-3 my-3">
-          <div class="card">
 
-            <a href="" class="link-light text-decoration-none">
-              <img src="image/product1.png" class="card-img-top rounded-top-4" alt="...">
+        <?php
+        $rs =  Database::search("SELECT * FROM `stock_view` ORDER BY `stock_view`.`stock_id` DESC LIMIT 8");
+        $num = $rs->num_rows;
 
-              <div class="card-body">
-                <h5 class="card-title">White T-shirt</h5>
-                <p class="card-text">Moose white T-shirt medium size</p>
-                <p class="card-text fs-3 fw-bold text-warning-emphasis">Rs.2500</p>
-              </div>
-            </a>
+        for ($x = 0; $x < $num; $x++) {
+          $row = $rs->fetch_assoc();
+        ?>
+          <div class="col-12 col-md-4 col-lg-3 my-3">
+            <div class="card">
+
+              <a href="" class="link-light text-decoration-none">
+                <img src="<?php echo ($row["img"]); ?>" class="card-img-top rounded-top-4" alt="...">
+
+                <div class="card-body">
+                  <h5 class="card-title"><?php echo ($row["name"]) ?></h5>
+                  <p class="card-text"><?php echo ($row["description"]) ?></p>
+                  <p class="card-text fs-3 fw-bold text-warning-emphasis"><?php echo ($row["price"]) ?></p>
+                </div>
+              </a>
+            </div>
           </div>
-        </div>
-        <div class="col-12 col-md-4 col-lg-3 my-3">
-          <div class="card">
+        <?php
+        }
+        ?>
 
-            <a href="" class="link-light text-decoration-none">
-              <img src="image/product1.png" class="card-img-top rounded-top-4" alt="...">
-
-              <div class="card-body">
-                <h5 class="card-title">White T-shirt</h5>
-                <p class="card-text">Moose white T-shirt medium size</p>
-                <p class="card-text fs-3 fw-bold text-warning-emphasis">Rs.2500</p>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-12 col-md-4 col-lg-3 my-3">
-          <div class="card">
-
-            <a href="" class="link-light text-decoration-none">
-              <img src="image/product1.png" class="card-img-top rounded-top-4" alt="...">
-
-              <div class="card-body">
-                <h5 class="card-title">White T-shirt</h5>
-                <p class="card-text">Moose white T-shirt medium size</p>
-                <p class="card-text fs-3 fw-bold text-warning-emphasis">Rs.2500</p>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-12 col-md-4 col-lg-3 my-3">
-          <div class="card">
-
-            <a href="" class="link-light text-decoration-none">
-              <img src="image/product1.png" class="card-img-top rounded-top-4" alt="...">
-
-              <div class="card-body">
-                <h5 class="card-title">White T-shirt</h5>
-                <p class="card-text">Moose white T-shirt medium size</p>
-                <p class="card-text fs-3 fw-bold text-warning-emphasis">Rs.2500</p>
-              </div>
-            </a>
-          </div>
-        </div>
       </div>
-
     </div>
+  </div>
+
+  <!-- footer -->
+
+  <div class="container-fluid bg-body-secondary py-3">
+    <div class="row">
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-around">
+            <img src="image/logo.png" alt="logo" height="100">
+            <div>
+            <p class="fs-3 fw-bold">Online Store</p>
+            <p>&copy; 2024</p>  
+          </div>
+          </div>
+        </div>
+    </div>
+
   </div>
 
 
@@ -114,8 +101,6 @@ session_start();
       window.location = "signin.php";
     }
   </script>
-
-  <script></script>
 </body>
 
 </html>
