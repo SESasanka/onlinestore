@@ -451,3 +451,20 @@ function printReport(){
 
   document.body.innerHTML = Content;
 }
+
+function search(page){
+
+  var search = document.getElementById("search");
+  
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      document.getElementById("content").innerHTML = resp;
+    }
+  }
+
+  req.open("GET","search-product-process.php?search=" + search.value + "&page=" + page ,true);
+  req.send();
+
+}

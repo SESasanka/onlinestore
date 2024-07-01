@@ -25,69 +25,75 @@ include "connection.php";
 
 
   <div class="container">
-    <div class="row">
+
+    <!-- search -->
+    <form class="row" method="GET" action="shop.php">
 
       <div class="col-5 offset-2 mt-4">
         <div class="form-floating">
-          <input type="text" class="form-control" id="search" placeholder="Serach...">
+          <input type="text" class="form-control" name="search" placeholder="Serach...">
           <label for="search">Search</label>
         </div>
       </div>
 
       <div class="col-2 mt-4 d-grid">
-        <button class="btn btn-secondary">Search</button>
+        <button type="submit" class="btn btn-secondary">Search</button>
       </div>
+    </form>
 
-      <div class="row">
-        <div class="col-12 mt-5">
-          <img class="rounded-3" src="image/banner.webp" width="100%" alt="">
-        </div>
-      </div>
 
-      <div class="row my-5">
+    <!-- search -->
 
-        <?php
-        $rs =  Database::search("SELECT * FROM `stock_view` ORDER BY `stock_view`.`stock_id` DESC LIMIT 8");
-        $num = $rs->num_rows;
-
-        for ($x = 0; $x < $num; $x++) {
-          $row = $rs->fetch_assoc();
-        ?>
-          <div class="col-12 col-md-4 col-lg-3 my-3">
-            <div class="card">
-
-              <a href="" class="link-light text-decoration-none">
-                <img src="<?php echo ($row["img"]); ?>" class="card-img-top rounded-top-4" alt="...">
-
-                <div class="card-body">
-                  <h5 class="card-title"><?php echo ($row["name"]) ?></h5>
-                  <p class="card-text"><?php echo ($row["description"]) ?></p>
-                  <p class="card-text fs-3 fw-bold text-warning-emphasis"><?php echo ($row["price"]) ?></p>
-                </div>
-              </a>
-            </div>
-          </div>
-        <?php
-        }
-        ?>
-
+    <div class="row">
+      <div class="col-12 mt-5">
+        <img class="rounded-3" src="image/banner.webp" width="100%" alt="">
       </div>
     </div>
+
+    <div class="row my-5">
+
+      <?php
+      $rs =  Database::search("SELECT * FROM `stock_view` ORDER BY `stock_view`.`stock_id` DESC LIMIT 8");
+      $num = $rs->num_rows;
+
+      for ($x = 0; $x < $num; $x++) {
+        $row = $rs->fetch_assoc();
+      ?>
+        <div class="col-12 col-md-4 col-lg-3 my-3">
+          <div class="card">
+
+            <a href="" class="link-light text-decoration-none">
+              <img src="<?php echo ($row["img"]); ?>" class="card-img-top rounded-top-4" alt="...">
+
+              <div class="card-body">
+                <h5 class="card-title"><?php echo ($row["name"]) ?></h5>
+                <p class="card-text"><?php echo ($row["description"]) ?></p>
+                <p class="card-text fs-3 fw-bold text-warning-emphasis"><?php echo ($row["price"]) ?></p>
+              </div>
+            </a>
+          </div>
+        </div>
+      <?php
+      }
+      ?>
+
+    </div>
+  </div>
   </div>
 
   <!-- footer -->
 
   <div class="container-fluid bg-body-secondary py-3">
     <div class="row">
-        <div class="col-12">
-          <div class="d-flex align-items-center justify-content-around">
-            <img src="image/logo.png" alt="logo" height="100">
-            <div>
+      <div class="col-12">
+        <div class="d-flex align-items-center justify-content-around">
+          <img src="image/logo.png" alt="logo" height="100">
+          <div>
             <p class="fs-3 fw-bold">Online Store</p>
-            <p>&copy; 2024</p>  
-          </div>
+            <p>&copy; 2024</p>
           </div>
         </div>
+      </div>
     </div>
 
   </div>
