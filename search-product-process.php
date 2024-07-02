@@ -1,45 +1,21 @@
-<div class="col-2 bg-dark py-4 rounded-3 mt-5 ms-2">
-    <h2 class="text-center"><i class="bi bi-funnel-fill"></i>Filters</h2>
-    <div class="mb-2">
-        <label class="form-label" for="">Category</label>
-        <select class="form-control" id="">
-            <option value="0">Select Category</option>
-        </select>
-    </div>
-    <div class="mb-2">
-        <label class="form-label" for="">Brand</label>
-        <select class="form-control" id="">
-            <option value="0">Select Brand</option>
-        </select>
-    </div>
-    <div class="mb-2">
-        <label class="form-label" for="">Size</label>
-        <select class="form-control" id="">
-            <option value="0">Select Size</option>
-        </select>
-    </div>
-    <div class="mb-2">
-        <label class="form-label" for="">Color</label>
-        <select class="form-control" id="">
-            <option value="0">Select Color</option>
-        </select>
-    </div>
-    <div class="mb-2">
-        <label class="form-label" for="">Price Form</label>
-        <input class="form-control" type="text" name="" id="">
-    </div>
-    <div class="mb-2">
-        <label class="form-label" for="">Price To</label>
-        <input class="form-control" type="text" name="" id="">
-    </div>
-</div>
+<?php
+include  "connection.php";
+?>
 
-<div class="col-9">
+<!-- filter -->
+<?php
+include "filter-form.php";
+?>
+<!-- filter -->
+
+
+
+<div class="col-10 offset-1 col-md-8 offset-md-0 col-lg-9">
     <div class="row">
 
         <?php
 
-        include "connection.php";
+
 
         $page = 1;
 
@@ -50,7 +26,7 @@
 
         $search = $_GET["search"];
 
-        $rs = Database::search("SELECT * FROM `stock_view` WHERE `name` LIKE '%$search%'");
+        $rs = Database::search("SELECT * FROM `stock_view` WHERE `name` LIKE '%$search%' AND `status`='1'");
         $num = $rs->num_rows;
 
         $resultsPerpage =  4;
@@ -68,7 +44,7 @@
 
         ?>
 
-                <div class="col-12 col-md-4 col-lg-3 my-3 ">
+                <div class="col-12 col-md-6 col-lg-3 my-3 ">
                     <div class="card ">
 
                         <a href="" class="link-light text-decoration-none">

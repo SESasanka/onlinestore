@@ -468,3 +468,33 @@ function search(page){
   req.send();
 
 }
+
+function filter(page){
+  var category = document.getElementById("category");
+  var brand = document.getElementById("brand");
+  var size = document.getElementById("size");
+  var color = document.getElementById("color");
+  var priceFrom = document.getElementById("priceFrom");
+  var priceTo = document.getElementById("priceTo");
+  var search = document.getElementById("search");
+
+  var form = new FormData();
+  form.append("category",category.value);
+  form.append("brand",brand.value);
+  form.append("size",size.value);
+  form.append("color",color.value);
+  form.append("priceFrom",priceFrom.value);
+  form.append("priceTo",priceTo.value);
+  form.append("search",search.value);
+  form.append("page",page);
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      document.getElementById("content").innerHTML = resp;
+    }
+  }
+  req.open("POST","filter-product-process.php",true);
+  req.send(form);
+}
