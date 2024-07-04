@@ -62,7 +62,7 @@ include "connection.php";
         <div class="col-12 col-md-4 col-lg-3 my-3">
           <div class="card">
 
-            <a href="" class="link-light text-decoration-none">
+            <a href="single-product-view.php?product=<?php echo $row["stock_id"]; ?>" class="link-light text-decoration-none">
               <img src="<?php echo ($row["img"]); ?>" class="card-img-top rounded-top-4" alt="...">
 
               <div class="card-body">
