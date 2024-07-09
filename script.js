@@ -498,3 +498,65 @@ function filter(page){
   req.open("POST","filter-product-process.php",true);
   req.send(form);
 }
+
+function uploadProfileImg(){
+  var profile = document.getElementById("profileImg");
+
+  var form = new FormData();
+  form.append("img",profile.files[0]);
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      if(resp == "success"){
+        window.location.reload();
+      }else{
+        alert(resp);
+      }
+    }
+  }
+
+  req.open("POST","upload-profile-img-process.php",true);
+  req.send(form);
+
+}
+
+function updateProfile(){
+
+  var fname = document.getElementById("fname").value;
+  var lname = document.getElementById("lname").value;
+  var mobile = document.getElementById("mobile").value;
+  var no = document.getElementById("no").value;
+  var line1 = document.getElementById("line1").value;
+  var line2 = document.getElementById("line2").value;
+  var city = document.getElementById("city").value;
+  var pcode = document.getElementById("pcode").value;
+
+  var form = new FormData();
+  form.append("fname",fname);
+  form.append("lname",lname);
+  form.append("mobile",mobile);
+  form.append("no",no);
+  form.append("line1",line1);
+  form.append("line2",line2);
+  form.append("city",city);
+  form.append("pcode",pcode);
+
+  var req = new XMLHttpRequest();
+
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp  = req.responseText;
+      if(resp = "success"){
+        window.location.reload();
+      }else{
+        alert(resp);
+      }
+    }
+  }
+
+  req.open("POST","update-user-profile-process.php",true);
+  req.send(form);
+
+}
