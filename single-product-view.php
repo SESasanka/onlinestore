@@ -66,7 +66,7 @@ $row = $rs->fetch_assoc();
                             <div class="fw-bold text-info fs-4 mb-3">RS <?php echo $row["price"]  ?></div>
 
                             <div class="d-flex align-items-center">
-                                <input class="form-control" type="text" placeholder="Qty" id="" style="width :100px">
+                                <input class="form-control" type="text" placeholder="Qty" id="qty" style="width :100px">
 
                                 <?php
                                 if ($row["qty"] > 0) {
@@ -86,7 +86,7 @@ $row = $rs->fetch_assoc();
 
                             <div class="row mt-3">
                                 <div class="col-6 d-grid">
-                                    <button class="btn btn-primary fw-bold">Add to Card</button>
+                                    <button class="btn btn-primary fw-bold" onclick="addToCart('<?php echo ($row['stock_id']); ?>');">Add to Card</button>
                                 </div>
                                 <div class="col-6 d-grid">
                                     <button class="btn btn-success fw-bold">Buy Now</button>

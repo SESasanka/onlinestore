@@ -560,3 +560,30 @@ function updateProfile(){
   req.send(form);
 
 }
+
+function addToCart(stock){
+  var qty = document.getElementById("qty");
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function (){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      alert(resp);
+    }
+  }
+  req.open("GET","add-to-cart-process.php?stock=" + stock + "&qty=" + qty.value,true);
+  req.send();
+
+}
+
+function loadCart(){
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      document.getElementById("content").innerHTML = resp;
+    }
+  }
+  req.open("GET","load-cart-process.php",true);
+  req.send();
+}
