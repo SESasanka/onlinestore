@@ -20,14 +20,22 @@ if (isset($_SESSION["admin"])) {
         <title>Admin Dashboard | Online Store</title>
     </head>
 
-    <body>
+    <body onload="loadChart();">
 
-        
+
         <?php
         include "admin-header.php";
         ?>
 
-        
+
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <canvas id="chart1"></canvas>
+                </div>
+            </div>
+        </div>
+
 
 
         <?php
@@ -35,6 +43,7 @@ if (isset($_SESSION["admin"])) {
         ?>
 
 
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     </body>
 
     </html>

@@ -561,7 +561,7 @@ function updateProfile(){
 
 }
 
-function addToCart(stock){
+function addToCart(stockId){
   var qty = document.getElementById("qty");
 
   var req = new XMLHttpRequest();
@@ -571,7 +571,7 @@ function addToCart(stock){
       alert(resp);
     }
   }
-  req.open("GET","add-to-cart-process.php?stock=" + stock + "&qty=" + qty.value,true);
+  req.open("GET","add-to-cart-process.php?id=" + stockId + "&qty=" + qty.value,true);
   req.send();
 
 }
@@ -585,5 +585,113 @@ function loadCart(){
     }
   }
   req.open("GET","load-cart-process.php",true);
+  req.send();
+}
+
+function removeFromCart(cartId){
+
+  var req = new XMLHttpRequest();
+
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      if(resp == "success"){
+        showAlert("Success","Cart Item Removed Successfully!","success");
+        loadCart();
+      }else{
+        showAlert("Error",resp,"error");
+
+      }
+    }
+  }
+  req.open("GET","remove-from-cart-process.php?id" + cartId,true);
+  req.send();
+
+}
+
+function incrementCartQty(cartId){
+
+  var qty = document.getElementById;("qty-" + cartId);
+
+  var newQty = parseInt(qty.value) + 1;
+
+  var req = new XMLHttpRequest();
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+      if(resp == "success"){
+        loadCart();
+      }else{
+        showAlert("Error",resp,"error");
+      }
+    }
+  }
+
+  req.open("GET","update-cart-qty-process.php?id=" + cartId + "&qty=" + newQty,true);
+  req.send();
+
+}
+
+function decrementCartQty(cartId){
+
+  var qtyE = document.getElementById("qty-" + cartId);
+
+  var qty = parseInt(qtyE.value);
+
+  if(qty <= 1){
+    showAlert("Warning","Quntity must be a positive number","wrning");
+  }else{
+
+    var newQty = qty - 1;
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function(){
+      if(req.readyState == 4 && req.status == 200){
+        var resp = req.responseText;
+        alert(resp);
+      }
+    }
+  }
+
+
+  req.open("GET","update-cart-qty-process.php?id=" + cartId + "&qty=" + newQty,true);
+  req.send();
+
+}
+
+function loadChart(){
+
+  var chart1 = document.getElementById("chart1");
+
+  var req = new XMLHttpRequest();
+
+  req.onreadystatechange = function(){
+    if(req.readyState == 4 && req.status == 200){
+      var resp = req.responseText;
+
+      var json = JSON.parse(resp);
+
+      new Chart(chart1, {
+        type: 'bar',
+        data: {
+          labels: json.labels,
+          datasets: [{
+            label: '# of Quntities',
+            data: json.data,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+    }
+  }
+  req.open("GET","load-chart-process.php",true);
   req.send();
 }

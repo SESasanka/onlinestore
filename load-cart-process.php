@@ -45,9 +45,9 @@ if (isset($_SESSION["user"])) {
                 </div>
 
                 <div class="btn-group d-flex" role="group" aria-label="Basic example">
-                    <button class="btn btn-sm btn-light rounded ">-</button>
-                    <input type="text" class="form-control form-control-sm text-center ms-2 rounded-pill" style="width: 100px;" value="<?php echo $row["qty"]; ?>" disabled>
-                    <button class="btn btn-sm btn-light rounded ms-2">+</button>
+                    <button onclick="decrementCartQty('<?php echo $row['id']; ?>')" class="btn btn-sm btn-light rounded ">-</button>
+                    <input id="qty-<?php echo $row["id"]; ?>" class="form-control form-control-sm text-center ms-2 rounded-pill" style="width: 100px;" value="<?php echo $row["qty"]; ?>" disabled>
+                    <button onclick="incrementCartQty('<?php echo $row['id']; ?>')" class="btn btn-sm btn-light rounded ms-2">+</button>
                 </div>
 
                 <div>
@@ -59,7 +59,7 @@ if (isset($_SESSION["user"])) {
                 </div>
 
                 <div>
-                    <button class="btn btn-danger btn-sm"><i class="bi bi-trash3-fill"></i></button>
+                    <button class="btn btn-danger btn-sm" onclick="removeFromCart('<?php echo $row['id']; ?>')"><i class="bi bi-trash3-fill"></i></button>
                 </div>
             </div>
             <!-- Cart-item -->
