@@ -22,10 +22,9 @@ if (isset($_SESSION["admin"])) {
 
     <body onload="loadChart();">
 
-
-        <?php
-        include "admin-header.php";
-        ?>
+        <!-- admin nav bar -->
+        <?php include "admin-header.php";?>
+        <!-- admin nav bar -->
 
 
         <div class="container">
@@ -37,10 +36,9 @@ if (isset($_SESSION["admin"])) {
         </div>
 
 
-
-        <?php
-        include "admin-footer.php";
-        ?>
+        <!-- admin footer bar -->
+        <?php include "admin-footer.php"; ?>
+         <!-- admin footer bar -->
 
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

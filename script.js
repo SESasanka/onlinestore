@@ -260,8 +260,7 @@ function registerSize() {
   req.send(form);
 }
 
-function registerProduct(){
-
+function registerProduct() {
   var name = document.getElementById("prodname");
   var desc = document.getElementById("proddesc");
   var category = document.getElementById("prodcategory");
@@ -271,68 +270,63 @@ function registerProduct(){
   var image = document.getElementById("prodimage");
 
   var form = new FormData();
-  form.append("name",name.value);
-  form.append("desc",desc.value);
-  form.append("category",category.value);
-  form.append("brand",brand.value);
-  form.append("color",color.value);
-  form.append("size",size.value);
-  form.append("img",image.files[0]);
+  form.append("name", name.value);
+  form.append("desc", desc.value);
+  form.append("category", category.value);
+  form.append("brand", brand.value);
+  form.append("color", color.value);
+  form.append("size", size.value);
+  form.append("img", image.files[0]);
 
   var req = new XMLHttpRequest();
 
-  req.onreadystatechange = function (){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
-      if(resp == "success"){
+      if (resp == "success") {
         window.location.reload();
-      }else{
-        alert(resp)
+      } else {
+        alert(resp);
       }
     }
-  }
+  };
 
-  req.open("POST","register-product-process.php",true);
+  req.open("POST", "register-product-process.php", true);
   req.send(form);
-
 }
 
-function loadProducts(page){
-
+function loadProducts(page) {
   var req = new XMLHttpRequest();
 
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
       document.getElementById("content").innerHTML = resp;
     }
-  }
+  };
 
-  req.open("GET","load-products-process.php?page=" + page,true);
+  req.open("GET", "load-products-process.php?page=" + page, true);
   req.send();
-
 }
 
-function changeProductStatus(id){
-  var req =  new XMLHttpRequest();
+function changeProductStatus(id) {
+  var req = new XMLHttpRequest();
 
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
-      if(resp == "success"){
-          window.location.reload();
-      }else{
+      if (resp == "success") {
+        window.location.reload();
+      } else {
         alert(resp);
       }
-      
     }
-  }
-  req.open("GET","change-product-process.php?id=" + id,true);
+  };
+  req.open("GET", "change-product-process.php?id=" + id, true);
   req.send();
 }
 
-function addStock(){
-
+function addStock() {
   var product = document.getElementById("product");
   var qty = document.getElementById("qty");
   var price = document.getElementById("unitPrice");
@@ -343,37 +337,38 @@ function addStock(){
   form.append("price", price.value);
 
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
-      if(resp == "success"){
-        showAlert("Success","Stock Updated Successfully!","success").then(()=>{
-          window.location.reload();
-        });
-      }else{
-        showAlert("Error",resp,"error");
+      if (resp == "success") {
+        showAlert("Success", "Stock Updated Successfully!", "success").then(
+          () => {
+            window.location.reload();
+          }
+        );
+      } else {
+        showAlert("Error", resp, "error");
       }
     }
-  }
+  };
 
-  req.open("POST","add-stock-process.php",true);
+  req.open("POST", "add-stock-process.php", true);
   req.send(form);
-
 }
 
-function showAlert(title,text,icon){
+function showAlert(title, text, icon) {
   return Swal.fire({
     title: title,
     text: text,
     icon: icon,
-    color:"#fff"
+    color: "#fff",
   });
 }
 
-function loadProUpdateData(id){
+function loadProUpdateData(id) {
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
       var data = JSON.parse(resp);
 
@@ -386,62 +381,61 @@ function loadProUpdateData(id){
       document.getElementById("uProdsize").value = data.size_size_id;
       document.getElementById("uProdImgTag").src = data.img;
 
-      
       new bootstrap.Modal(document.getElementById("UpdateProductModal")).show();
     }
-  }
-  req.open("GET","get-product-details.php?id=" + id, true);
+  };
+  req.open("GET", "get-product-details.php?id=" + id, true);
   req.send();
 }
 
-function updateProdImage(){
+function updateProdImage() {
   var image = document.getElementById("uProdimage");
   var imageTag = document.getElementById("uProdImgTag");
 
   var url = window.URL.createObjectURL(image.files[0]);
   imageTag.src = url;
-
 }
 
-function updateProduct(){
+function updateProduct() {
   var id = document.getElementById("uProdname");
   var name = document.getElementById("uProddesc");
   var desc = document.getElementById("uProdcategory");
   var cat = document.getElementById("uProId");
   var brand = document.getElementById("uProdbrand");
   var size = document.getElementById("uProdcolor");
-  var color = document.getElementById("uProdsize") ;
+  var color = document.getElementById("uProdsize");
   var image = document.getElementById("uProdimage");
 
   var form = new FormData();
-  form.append("id",id.value);
-  form.append("name",name.value);
-  form.append("desc",desc.value);
-  form.append("cat",cat.value);
-  form.append("brand",brand.value);
-  form.append("size",size.value);
-  form.append("color",color.value);
-  form.append("img",image.files[0]);
+  form.append("id", id.value);
+  form.append("name", name.value);
+  form.append("desc", desc.value);
+  form.append("cat", cat.value);
+  form.append("brand", brand.value);
+  form.append("size", size.value);
+  form.append("color", color.value);
+  form.append("img", image.files[0]);
 
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
-      if(resp == "success"){
-        showAlert("Success", "Product Updated Successfully","success").then(()=>{
-          window.location.reload();
-        });
-      }else{
-        showAlert("Error",resp, "error");
+      if (resp == "success") {
+        showAlert("Success", "Product Updated Successfully", "success").then(
+          () => {
+            window.location.reload();
+          }
+        );
+      } else {
+        showAlert("Error", resp, "error");
       }
     }
-  }
-  req.open("POST","update-product-process.php",true);
+  };
+  req.open("POST", "update-product-process.php", true);
   req.send(form);
-
 }
 
-function printReport(){
+function printReport() {
   var Content = document.body.innerHTML;
   var printArea = document.getElementById("printArea");
 
@@ -452,24 +446,26 @@ function printReport(){
   document.body.innerHTML = Content;
 }
 
-function search(page){
-
+function search(page) {
   var search = document.getElementById("search");
-  
+
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
       document.getElementById("content").innerHTML = resp;
     }
-  }
+  };
 
-  req.open("GET","search-product-process.php?search=" + search.value + "&page=" + page ,true);
+  req.open(
+    "GET",
+    "search-product-process.php?search=" + search.value + "&page=" + page,
+    true
+  );
   req.send();
-
 }
 
-function filter(page){
+function filter(page) {
   var category = document.getElementById("category");
   var brand = document.getElementById("brand");
   var size = document.getElementById("size");
@@ -479,51 +475,49 @@ function filter(page){
   var search = document.getElementById("search");
 
   var form = new FormData();
-  form.append("category",category.value);
-  form.append("brand",brand.value);
-  form.append("size",size.value);
-  form.append("color",color.value);
-  form.append("priceFrom",priceFrom.value);
-  form.append("priceTo",priceTo.value);
-  form.append("search",search.value);
-  form.append("page",page);
+  form.append("category", category.value);
+  form.append("brand", brand.value);
+  form.append("size", size.value);
+  form.append("color", color.value);
+  form.append("priceFrom", priceFrom.value);
+  form.append("priceTo", priceTo.value);
+  form.append("search", search.value);
+  form.append("page", page);
 
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
       document.getElementById("content").innerHTML = resp;
     }
-  }
-  req.open("POST","filter-product-process.php",true);
+  };
+  req.open("POST", "filter-product-process.php", true);
   req.send(form);
 }
 
-function uploadProfileImg(){
+function uploadProfileImg() {
   var profile = document.getElementById("profileImg");
 
   var form = new FormData();
-  form.append("img",profile.files[0]);
+  form.append("img", profile.files[0]);
 
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
-      if(resp == "success"){
+      if (resp == "success") {
         window.location.reload();
-      }else{
+      } else {
         alert(resp);
       }
     }
-  }
+  };
 
-  req.open("POST","upload-profile-img-process.php",true);
+  req.open("POST", "upload-profile-img-process.php", true);
   req.send(form);
-
 }
 
-function updateProfile(){
-
+function updateProfile() {
   var fname = document.getElementById("fname").value;
   var lname = document.getElementById("lname").value;
   var mobile = document.getElementById("mobile").value;
@@ -534,164 +528,206 @@ function updateProfile(){
   var pcode = document.getElementById("pcode").value;
 
   var form = new FormData();
-  form.append("fname",fname);
-  form.append("lname",lname);
-  form.append("mobile",mobile);
-  form.append("no",no);
-  form.append("line1",line1);
-  form.append("line2",line2);
-  form.append("city",city);
-  form.append("pcode",pcode);
+  form.append("fname", fname);
+  form.append("lname", lname);
+  form.append("mobile", mobile);
+  form.append("no", no);
+  form.append("line1", line1);
+  form.append("line2", line2);
+  form.append("city", city);
+  form.append("pcode", pcode);
 
   var req = new XMLHttpRequest();
 
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
-      var resp  = req.responseText;
-      if(resp = "success"){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
+      var resp = req.responseText;
+      if ((resp = "success")) {
         window.location.reload();
-      }else{
+      } else {
         alert(resp);
       }
     }
-  }
+  };
 
-  req.open("POST","update-user-profile-process.php",true);
+  req.open("POST", "update-user-profile-process.php", true);
   req.send(form);
-
 }
 
-function addToCart(stockId){
+function addToCart(stockId) {
   var qty = document.getElementById("qty");
 
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function (){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
       alert(resp);
     }
-  }
-  req.open("GET","add-to-cart-process.php?id=" + stockId + "&qty=" + qty.value,true);
+  };
+  req.open(
+    "GET",
+    "add-to-cart-process.php?id=" + stockId + "&qty=" + qty.value,
+    true
+  );
   req.send();
-
 }
 
-function loadCart(){
+function loadCart() {
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
       document.getElementById("content").innerHTML = resp;
     }
-  }
-  req.open("GET","load-cart-process.php",true);
+  };
+  req.open("GET", "load-cart-process.php", true);
   req.send();
 }
 
-function removeFromCart(cartId){
-
+function removeFromCart(cartId) {
   var req = new XMLHttpRequest();
 
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
-      if(resp == "success"){
-        showAlert("Success","Cart Item Removed Successfully!","success");
+      if (resp == "success") {
+        showAlert("Success", "Cart Item Removed Successfully!", "success");
         loadCart();
-      }else{
-        showAlert("Error",resp,"error");
-
+      } else {
+        showAlert("Error", resp, "error");
       }
     }
-  }
-  req.open("GET","remove-from-cart-process.php?id" + cartId,true);
+  };
+  req.open("GET", "remove-from-cart-process.php?id" + cartId, true);
   req.send();
-
 }
 
-function incrementCartQty(cartId){
-
-  var qty = document.getElementById;("qty-" + cartId);
+function incrementCartQty(cartId) {
+  var qty = document.getElementById;
+  "qty-" + cartId;
 
   var newQty = parseInt(qty.value) + 1;
 
   var req = new XMLHttpRequest();
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
-      if(resp == "success"){
+      if (resp == "success") {
         loadCart();
-      }else{
-        showAlert("Error",resp,"error");
+      } else {
+        showAlert("Error", resp, "error");
       }
     }
-  }
+  };
 
-  req.open("GET","update-cart-qty-process.php?id=" + cartId + "&qty=" + newQty,true);
+  req.open(
+    "GET",
+    "update-cart-qty-process.php?id=" + cartId + "&qty=" + newQty,
+    true
+  );
   req.send();
-
 }
 
-function decrementCartQty(cartId){
-
+function decrementCartQty(cartId) {
   var qtyE = document.getElementById("qty-" + cartId);
 
   var qty = parseInt(qtyE.value);
 
-  if(qty <= 1){
-    showAlert("Warning","Quntity must be a positive number","wrning");
-  }else{
-
+  if (qty <= 1) {
+    showAlert("Warning", "Quntity must be a positive number", "wrning");
+  } else {
     var newQty = qty - 1;
 
     var req = new XMLHttpRequest();
-    req.onreadystatechange = function(){
-      if(req.readyState == 4 && req.status == 200){
+    req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
         var resp = req.responseText;
         alert(resp);
       }
-    }
+    };
   }
 
-
-  req.open("GET","update-cart-qty-process.php?id=" + cartId + "&qty=" + newQty,true);
+  req.open(
+    "GET",
+    "update-cart-qty-process.php?id=" + cartId + "&qty=" + newQty,
+    true
+  );
   req.send();
-
 }
 
-function loadChart(){
-
+function loadChart() {
   var chart1 = document.getElementById("chart1");
 
   var req = new XMLHttpRequest();
 
-  req.onreadystatechange = function(){
-    if(req.readyState == 4 && req.status == 200){
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
       var resp = req.responseText;
 
       var json = JSON.parse(resp);
 
       new Chart(chart1, {
-        type: 'bar',
+        type: "bar",
         data: {
           labels: json.labels,
-          datasets: [{
-            label: '# of Quntities',
-            data: json.data,
-            borderWidth: 1
-          }]
+          datasets: [
+            {
+              label: "# of Quntities",
+              data: json.data,
+              borderWidth: 1,
+            },
+          ],
         },
         options: {
           scales: {
             y: {
-              beginAtZero: true
-            }
-          }
-        }
+              beginAtZero: true,
+            },
+          },
+        },
       });
-
     }
-  }
-  req.open("GET","load-chart-process.php",true);
+  };
+  req.open("GET", "load-chart-process.php", true);
   req.send();
+}
+
+function checkOut() {
+  var req = new XMLHttpRequest();
+
+  req.onreadystatechange = function () {
+    if (req.readyState == 4 && req.status == 200) {
+      var json = req.responseText;
+      var resp = JSON.parse(json);
+      if (resp.status == "success") {
+        doCheckout(resp.payment,"");
+      } else {
+        showAlert("Error", resp, "error");
+      }
+    }
+  };
+
+  req.open("GET", "payment-process.php?cart=true", true);
+  req.send();
+}
+
+function doCheckout(payment, url) {
+
+  // Payment completed. It can be a successful failure.
+  payhere.onCompleted = function onCompleted(orderId) {
+    showAlert("Sucess","Payment completed. OrderID:" + orderId,"success");
+  };
+
+  // Payment window closed
+  payhere.onDismissed = function onDismissed() {
+    showAlert("Warning","Payment dismissed","warning");
+  };
+
+  // Error occurred
+  payhere.onError = function onError(error) {
+    showAlert("Error:" + error,"error");
+  };
+
+  payment.startPayment(payment);
+
 }

@@ -89,5 +89,5 @@ if (isset($_SESSION["user"])) {
 
     <h4>Delivery Fee: <span class="text-muted">Rs.<?php echo $delivery; ?>.00</span></h4>
     <h2>Net Total: <span class="text-warning">Rs.<?php echo $netTotal ?> .00</span></h2>
-    <button class="btn btn-success w-25">CHECKOUT</button>
+    <button onclick="checkOut();" class="btn btn-success w-25">CHECKOUT</button>
 </div>

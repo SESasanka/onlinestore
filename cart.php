@@ -34,7 +34,8 @@ if (isset($_SESSION["user"])) {
         <div class="container">
             <div class="row" id="content">
 
-                
+                <button onclick="checkOut();" class="btn btn-success w-25">CHECKOUT</button>
+
 
             </div>
         </div>
@@ -42,6 +43,7 @@ if (isset($_SESSION["user"])) {
 
         <script src="script.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 
     </body>
 
