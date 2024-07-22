@@ -700,7 +700,7 @@ function checkOut() {
       var json = req.responseText;
       var resp = JSON.parse(json);
       if (resp.status == "success") {
-        doCheckout(resp.payment,"");
+        doCheckout(resp.payment,"checkout-process.php");
       } else {
         showAlert("Error", resp, "error");
       }
@@ -716,6 +716,30 @@ function doCheckout(payment, url) {
   // Payment completed. It can be a successful failure.
   payhere.onCompleted = function onCompleted(orderId) {
     showAlert("Sucess","Payment completed. OrderID:" + orderId,"success");
+
+    var form = new FormData();
+    form.append("payment",JSON.stringify("payment"));
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function(){
+      if(req.readyState == 4 && req.status == 200){
+        var json = req.responseText;
+       var resp = JSON.parse(json);
+
+       if(resp.status == "status"){
+        showAlert("Success","Order Success","success").then(() => {
+          //Refirect
+        });
+       }else{
+        showAlert("Error",resp.error,"error");
+       }
+
+      }
+    }
+
+    req.open("POST",url,true);
+    req.send(form);
+
   };
 
   // Payment window closed

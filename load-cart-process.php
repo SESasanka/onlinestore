@@ -77,17 +77,39 @@ if (isset($_SESSION["user"])) {
 <div class="col-12">
     <hr>
 </div>
-<div class="col-12 text-end">
-    <h5>Number of Items: <span class="fw-bold text-danger-emphasis">2</span></h5>
 
-    <?php
+<?php 
 
-        $delivery = 500;
-        $netTotal +=$delivery;
+if($num > 0){
 
     ?>
+    <div class="col-12 text-end">
+        <h5>Number of Items: <span class="fw-bold text-danger-emphasis">2</span></h5>
+    
+        <?php
+    
+            $delivery = 500;
+            $netTotal +=$delivery;
+    
+        ?>
+    
+        <h4>Delivery Fee: <span class="text-muted">Rs.<?php echo $delivery; ?>.00</span></h4>
+        <h2>Net Total: <span class="text-warning">Rs.<?php echo $netTotal ?> .00</span></h2>
+        <button onclick="checkOut();" class="btn btn-success w-25">CHECKOUT</button>
+    </div>
+    
+    
+    <?php
 
-    <h4>Delivery Fee: <span class="text-muted">Rs.<?php echo $delivery; ?>.00</span></h4>
-    <h2>Net Total: <span class="text-warning">Rs.<?php echo $netTotal ?> .00</span></h2>
-    <button onclick="checkOut();" class="btn btn-success w-25">CHECKOUT</button>
-</div>
+}else{
+    ?>
+    
+    <div class="col-12 text-center">
+        <h1>Cart is Empty</h1>
+        <a href="index.php" class="btn btn-warning">Continue Shopping</a>
+    </div>
+
+    <?php
+}
+
+?>
