@@ -372,7 +372,7 @@ if (isset($_SESSION["admin"])) {
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" onclick="registerProduct();">update Product</button>
+                            <button type="button" class="btn btn-primary" onclick="updateProduct();">update Product</button>
                         </div>
                     </div>
                 </div>
