@@ -64,14 +64,22 @@ function signin() {
 }
 
 function forgotPassword() {
+  var loader = document.getElementById("loader");
+  var btnText = document.getElementById("btnText");
   var email = document.getElementById("email");
+
+  loader.classList.remove("d-none");
+  btnText.classList.add("d-none");
 
   var req = new XMLHttpRequest();
 
   req.onreadystatechange = function () {
     if (req.readyState == 4 && req.status == 200) {
+      loader.classList.add("d-none");
+      btnText.classList.remove("d-none");
+
       var resp = req.responseText;
-      alert(resp);
+      showAlert("Success",resp,"success");
     }
   };
   req.open("GET", "forgot-passowrd-process.php?email=" + email.value, true);
