@@ -89,7 +89,7 @@ $row = $rs->fetch_assoc();
                                     <button class="btn btn-primary fw-bold" onclick="addToCart('<?php echo ($row['stock_id']); ?>');">Add to Card</button>
                                 </div>
                                 <div class="col-6 d-grid">
-                                    <button class="btn btn-success fw-bold">Buy Now</button>
+                                    <button class="btn btn-success fw-bold" onclick="buyNow('<?php echo $stockId; ?>');">Buy Now</button>
                                 </div>
                             </div>
 
@@ -107,6 +107,9 @@ $row = $rs->fetch_assoc();
     </footer>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 
     <script src="script.js"></script>
 </body>

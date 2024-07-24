@@ -11,7 +11,7 @@ $error = "";
 $stockList = [];
 $qtyList = [];
 
-if (isset($_GET["cart"]) && $_GET["cart"] == "true") {
+if (isset($_POST["cart"]) && $_POST["cart"] == "true") {
 
     $rs = Database::search("SELECT * FROM `crat` WHERE `user_id`='$userId'");
     $num = $rs->num_rows;
@@ -22,6 +22,11 @@ if (isset($_GET["cart"]) && $_GET["cart"] == "true") {
         $stockList[] = $row["stock_id"];
         $qtyList[] = $row["qty"];
     }
+}else{
+
+    $stockList[] = $_POST["stockId"];
+    $qtyList[] = $_POST["qty"];
+
 }
 
 $merchantId = "1224688";

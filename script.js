@@ -693,6 +693,10 @@ function loadChart() {
 }
 
 function checkOut() {
+
+  var form = new FormData();
+  form.append("cart",true);
+
   var req = new XMLHttpRequest();
 
   req.onreadystatechange = function () {
@@ -700,58 +704,90 @@ function checkOut() {
       var json = req.responseText;
       var resp = JSON.parse(json);
       if (resp.status == "success") {
-        doCheckout(resp.payment,"checkout-process.php");
+        doCheckout(resp.payment, "checkout-process.php");
       } else {
         showAlert("Error", resp, "error");
       }
     }
   };
 
-  req.open("GET", "payment-process.php?cart=true", true);
+  req.open("POST", "payment-process.php", true);
   req.send();
 }
 
 function doCheckout(payment, url) {
-
   // Payment completed. It can be a successful failure.
   payhere.onCompleted = function onCompleted(orderId) {
-    showAlert("Sucess","Payment completed. OrderID:" + orderId,"success");
+    showAlert("Sucess", "Payment completed. OrderID:" + orderId, "success");
 
     var form = new FormData();
-    form.append("payment",JSON.stringify("payment"));
+    form.append("payment", JSON.stringify("payment"));
+
+    var req = new XMLHttpRequest();
+    req.onreadystatechange = function () {
+      if (req.readyState == 4 && req.status == 200) {
+        var json = req.responseText;
+        var resp = JSON.parse(json);
+
+        if (resp.status == "status") {
+          showAlert("Success", "Order Success", "success").then(() => {
+            //Refirect
+          });
+        } else {
+          showAlert("Error", resp.error, "error");
+        }
+      }
+    };
+
+    req.open("POST", url, true);
+    req.send(form);
+  };
+
+  // Payment window closed
+  payhere.onDismissed = function onDismissed() {
+    showAlert("Warning", "Payment dismissed", "warning");
+  };
+
+  // Error occurred
+  payhere.onError = function onError(error) {
+    showAlert("Error:" + error, "error");
+  };
+
+  payment.startPayment(payment);
+}
+
+function buyNow(stockId) {
+  var qty = document.getElementById("qty");
+
+  if (qty.value > 0) {
+
+    var form = new FormData();
+    form.append("cart",false);
+    form.append("stockId",stockId);
+    form.append("qty",qty.value);
 
     var req = new XMLHttpRequest();
     req.onreadystatechange = function(){
       if(req.readyState == 4 && req.status == 200){
         var json = req.responseText;
-       var resp = JSON.parse(json);
+        var resp = JSON.parse(json);
 
-       if(resp.status == "status"){
-        showAlert("Success","Order Success","success").then(() => {
-          //Refirect
-        });
-       }else{
-        showAlert("Error",resp.error,"error");
-       }
+        if(resp.status == "success"){
 
+          resp.payment.stock_id = stockId;
+          resp.payment.qty = qty.value;
+
+          doCheckout(resp.payment,"buynow-process.php");
+        }else{
+          showAlert("Warning",resp.error,"warning");
+
+        }
       }
     }
-
-    req.open("POST",url,true);
+    req.open("POST","payment-process.php",true);
     req.send(form);
 
-  };
-
-  // Payment window closed
-  payhere.onDismissed = function onDismissed() {
-    showAlert("Warning","Payment dismissed","warning");
-  };
-
-  // Error occurred
-  payhere.onError = function onError(error) {
-    showAlert("Error:" + error,"error");
-  };
-
-  payment.startPayment(payment);
-
+  } else {
+    showAlert("Warning", "Quantity cannot be less than 1", "warning");
+  }
 }
