@@ -739,7 +739,7 @@ function doCheckout(payment, url) {
 
         if (resp.status == "status") {
           showAlert("Success", "Order Success", "success").then(() => {
-            //Refirect
+            window.location.href = "invoice.php?=" + resp.ohId;
           });
         } else {
           showAlert("Error", resp.error, "error");
